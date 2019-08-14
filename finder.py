@@ -26,12 +26,17 @@ class Finder:
     
     def GetStreamerIds(self):
         url = 'https://api.twitch.tv/helix/streams?first=100&language=' + self.language
-        response = requests.get(url, headers=self.headers).json()
+        response = requests.get(url, headers=self.headers)
+        if response.status_code is not 200:
+            print_log(self.module_name + ' Error GetStreamerIds')
+            return
+        resjson = response.json()
+        
         #print_log('Finder GET stream')
 
         
-        for i in range(len(response['data'])):
-            self.streamer.append(User(response['data'][i]['user_id'],''))
+        for i in range(len(resjson['data'])):
+            self.streamer.append(User(resjson['data'][i]['user_id'],''))
             
         if self.debug:
             print_log(self.module_name+ ' GetStreamids')
@@ -42,12 +47,16 @@ class Finder:
         for s in self.streamer:
             url = url + 'id=' + s.user_id + '&'
         url = url[:-1]
-        response = requests.get(url, headers=self.headers).json()
+        response = requests.get(url, headers=self.headers)
+        if response.status_code is not 200:
+            print_log(self.module_name + ' Error GetStreamerNames')
+            return
+        resjson = response.json()
         #print_log('Finder GET users')
     
         
-        for i in range(len(response['data'])):
-            self.streamer[i].user_name = (response['data'][i]['login'])
+        for i in range(len(resjson['data'])):
+            self.streamer[i].user_name = (resjson['data'][i]['login'])
             
         if self.debug:
             print_log(self.module_name + ' GetStreamerNames')
@@ -60,6 +69,11 @@ class Finder:
     
     def FindUser(self, streamer_name):
         url = "http://tmi.twitch.tv/group/user/" + streamer_name +  "/chatters"
+
+        response = requests.get(url)
+        if response.status_code is not 200:
+            print_log(self.module_name + ' Error FindUser')
+            return False
 
         chatter_list = requests.get(url).json()
         chatter_type = ['broadcaster','vips','moderators','staff','admins','global_mods','viewers']
