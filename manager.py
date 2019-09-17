@@ -20,8 +20,7 @@ def thread_finder_finduser(input_lock, output_lock, input_queue, output_queue, f
         
         try:  
             isFound = finder.FindUser(streamer_name)
-        except TypeError:
-            print_log('(Thread) TypeError')
+        except:
             input_lock.acquire()
             input_queue.put(streamer_name)
             input_lock.release()
@@ -84,7 +83,7 @@ def process_IRCClient(lock, channel_queue,target):
 
         if i.joined:
             i.read_process()
-        time.sleep(0.2)
+        time.sleep(0.01)
     
     
 def run(target, update_time):
