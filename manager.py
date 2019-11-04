@@ -63,7 +63,7 @@ def process_finder(lock, channel_queue, target, update_time):
             resultString = resultString + r + ', '
         resultString = resultString[:-2]
         print_log(f.module_name + ' joined channels : ' + resultString)
-        write_log(target, f.module_name + ' joined channels : ' + resultString)
+        #write_log(target, f.module_name + ' joined channels : ' + resultString)
 
         result.append(target)
         

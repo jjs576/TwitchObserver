@@ -52,12 +52,12 @@ class IRCClient:
 
         for c in list(join_list):
             print_log(self.module_name + ' JOIN ' + c)
-            write_log(self.target, self.module_name + ' JOIN ' + c)
+            #write_log(self.target, self.module_name + ' JOIN ' + c)
             self.join_channel('#' + c)
             self.joined.add(c)
         for c in list(part_list):
             print_log(self.module_name + ' PART ' + c)
-            write_log(self.target, self.module_name + ' PART ' + c)
+            #write_log(self.target, self.module_name + ' PART ' + c)
             self.part_channel('#' + c)
             self.joined.remove(c)
 
@@ -110,7 +110,7 @@ class IRCClient:
                         print_message = self.module_name + ' '  + channel_name + ' ' + sender + ": " + message
                         if sender == self.target:
                             print_log(print_message)
-                            write_log(self.target, print_message)
+                            #write_log(self.target, print_message)
 
         except socket.error:
             print_log(self.module_name + ' Socket died')

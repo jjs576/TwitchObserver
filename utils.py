@@ -6,15 +6,6 @@ def print_log(message):
     t = time.strftime('[%Y/%m/%d %H:%M:%S] ', time.localtime(time.time()))
     print(t + message)
 
-def write_log(user_name,message):
-    t = time.localtime(time.time())
-    file_date = time.strftime('%Y%m%d_',t)
-    message_date = time.strftime('[%Y/%m/%d %H:%M:%S] ', t)
-    
-    f= open(folder + file_date + user_name + '.txt','a')
-    f.write(message_date + message + '\n')
-    f.close()
-
 def binary_search(arr, value):
     low = 0
     high = len(arr)-1
