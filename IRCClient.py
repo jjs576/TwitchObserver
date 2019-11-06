@@ -2,7 +2,7 @@ import re
 import socket
 import math
 import random
-from utils import print_log, write_log
+from utils import print_log
 
 class IRCClient:
     def __init__(self, _target):
